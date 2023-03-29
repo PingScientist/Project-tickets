@@ -14,6 +14,7 @@ import ddddocr
 d = int(input('場次時間：'))-1
 s = int(input('座位區域：'))
 n = int(input('輸入票數：'))
+a = (s+1)//2
 
 
 driver = webdriver.Chrome()
@@ -48,13 +49,13 @@ date.click()
 
 driver.implicitly_wait(10)
 seat = driver.find_elements(By.CSS_SELECTOR, f'[id="13966_{s}"]')
-print(seat)
 seat = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, f'[id="13966_{s}"]')))
 seat.click()
 
 while(True):
     driver.implicitly_wait(10)
-    amount = driver.find_element(By.XPATH ,'//*[@id="TicketForm_ticketPrice_01"]')
+    time.sleep(0.2)
+    amount = driver.find_element(By.XPATH ,f'//*[@id="TicketForm_ticketPrice_0{a}"]')
     amount.click()
     driver.implicitly_wait(10)
     number = driver.find_elements(By.CSS_SELECTOR, 'select option')[n]
